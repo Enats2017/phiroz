@@ -1,6 +1,6 @@
 /* Tablets Only - Start */
 
-@media (max-width: 979px) {
+@media (max-width: 2000px) {
 	#left-column{
 		width: 73px;
 	}
@@ -22,7 +22,7 @@
 	}
 
 	.sidebar-logo{
-		width: 73px;
+		width: 170px;
 		margin: 0 auto 30px;
 	}
 

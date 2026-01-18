@@ -62,7 +62,7 @@ a:focus{
 	color: #FFFFFF;
 	font-size: 28px;
 	font-weight: normal;
-	margin: 0 0 0 68px;
+	margin: 0 0 0 0px;
 	padding: 0;
 }
 .form-signin .form-signin-heading .login-header-image{
@@ -104,7 +104,7 @@ a:focus{
 }
 
 .form-signin-body-right{
-	background: none repeat scroll 0 0 #00A99D;
+	background: none repeat scroll 0 0 #2382e4;
 	float: left;
 	height: 100%;
 	margin: 0 0 0 30px;
@@ -113,7 +113,7 @@ a:focus{
 	z-index: 999;
 }
 .form-signin-body-right input{
-	background: none repeat scroll 0 0 #00A99D;
+	background: none repeat scroll 0 0 #2382e4;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
@@ -128,12 +128,12 @@ a:focus{
 }
 .form-signin-body-right input:hover,
 .form-signin-body-right input:focus{
-	background: none repeat scroll 0 0 #00bdb0;
+	background: none repeat scroll 0 0 #2382e4;
 }
 .form-signin-body-right input:active{
-	background: none repeat scroll 0 0 #00D1C3;
-	border-left:3px solid #12877A;
-	border-top:2px solid #12877A;
+	background: none repeat scroll 0 0 #2382e4;
+	border-left:3px solid #2382e4;
+	border-top:2px solid #2382e4;
 	padding-top: 13px;
 }
 .footer-info.copyright{
@@ -150,13 +150,13 @@ nav .footer-info.copyright{
 
 #left-column{
 	float: left;
-	padding: 35px 0 0;
+	padding: 15px 0 0;
 	position: relative;
 	width: 223px;
 	z-index: 1;
 }
 .sidebar-logo{
-	text-align: center;
+	
 	margin: 0 0 30px;
 }
 .sidebar.copyright{
@@ -423,14 +423,14 @@ ul.mainnav li#menu-control .menu-control-outer .menu-control-inner{
 }
 
 ul.mainnav li#menu-control .menu-control-outer.opened .menu-control-inner{
-	border-top: 1px solid #00C2B5;
-	background:#00A99D;
+	border-top: 1px solid #2382e4;
+	background:#2382e4;
 }
 
 ul.mainnav li#menu-control .menu-control-outer .menu-control-inner:hover,
 ul.mainnav li#menu-control .menu-control-outer .menu-control-inner:focus{
-	border-top: 1px solid #00C2B5;
-	background:#00A99D;
+	border-top: 1px solid #2382e4;
+	background:#2382e4;
 }
 
 ul.mainnav li#menu-control .menu-control-outer .menu-control-inner .icon-bar{
@@ -604,17 +604,6 @@ h1 img{
 }
 
 #content .heading .buttons a.button{
-	line-height: 40px;
-	margin: 0 0 0 10px;
-	background-color: #6d6d6d;
-	font-weight: bold;
-	color: #FFFFFF;
-	cursor: pointer;
-	padding: 0 36px;
-	display: inline-block;
-}
-
-#content .heading .buttons a.button1{
 	line-height: 40px;
 	margin: 0 0 0 10px;
 	background-color: #6d6d6d;
@@ -906,7 +895,7 @@ h1 img{
 }
 
 table.list{
-	font-size: 13px;
+	font-size: 10px;
 	width: 100%;
 }
 
@@ -1090,7 +1079,7 @@ form .htabs{
 	margin-left: 205px;
 }
 
-.vtabs-content table.form, .vtabs-content table.list{
+.vtabs-content table.form, .vtabs-content table.list, .vtabs-content table.form1{
 	width: 98%;
 	margin: 0 0 0 2%;
 }
@@ -1126,7 +1115,7 @@ form .htabs{
 	margin: 20px 0 20px 20px;
 }
 
-form table.form{
+form table.form, form table.form1{
 	margin: 2%;
 	width: 96%;
 	font-size: 13px;
@@ -1137,11 +1126,11 @@ form table.form{
 	/*padding: 5px 2px;*/
 }
 
-.content.sales-report table.form{
+.content.sales-report table.form, .content.sales-report table.form1{
 	width: 100%;
 }
 
-.content.sales-report table.form td a.button{
+.content.sales-report table.form td a.button, .content.sales-report table.form1 td a.button{
 	line-height: 48px;
 	margin: 0 0 0 10px;
 	background-color: #2382e4;
@@ -1159,13 +1148,21 @@ form table.form{
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
+.content.sales-report table.form1 td a.button:hover,
+.content.sales-report table.form1 td a.button:focus{
+	text-decoration: none;
+	opacity: 0.8;
+	filter: alpha(opacity = 80);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
 input, textarea, .uneditable-input,select{
 	width: auto;
-	font-size: 13px;
+	font-size: 10px;
 }
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
-	font-size: 13px;
+	font-size: 9px;
 	margin: 0;
 }
 .filter input,.filter textarea,.filter .uneditable-input,.filter select{
@@ -1222,6 +1219,15 @@ table.form > tbody > tr > td:first-child{
 	width: 20%;
 }
 
+table.form1 > tbody > tr > td{
+	padding: 0px;
+	border-bottom: 1px solid #EEEEEE;
+}
+
+table.form1 > tbody > tr > td:first-child{
+	width: 7%;
+}
+
 .scrollbox{
 	background: none repeat scroll 0 0 #FFFFFF;
 	border: 1px solid #CCCCCC;
@@ -1266,7 +1272,3 @@ input[type="checkbox"]{
 }
 
 /* jQuery UI 1.10.3 - End */
-
-.select2-container{
-	width: 400px !important;
-}
