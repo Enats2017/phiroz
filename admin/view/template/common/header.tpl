@@ -7,10 +7,10 @@
 <?php if ($description) { ?>
 <meta name="description" content="<?php echo $description; ?>" />
 <?php } ?>
-<?php if ($keywords) { ?>
+<?php   if ($keywords) { ?>
 <meta name="keywords" content="<?php echo $keywords; ?>" />
 <?php } ?>
-<?php foreach ($links as $link) { ?>
+<?php   foreach ($links as $link) { ?>
 <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
 <?php } ?>
 <link rel="stylesheet" type="text/css" href="view/stylesheet/stylesheet.css" />
@@ -23,7 +23,7 @@
 <script type="text/javascript" src="view/javascript/jquery/tabs.js"></script>
 <script type="text/javascript" src="view/javascript/jquery/superfish/js/superfish.js"></script>
 <script type="text/javascript" src="view/javascript/common.js"></script>
-<?php foreach ($scripts as $script) { ?>
+<?php   foreach ($scripts as $script) { ; ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php } ?>
 <script type="text/javascript">

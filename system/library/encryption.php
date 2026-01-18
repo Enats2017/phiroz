@@ -7,27 +7,17 @@ final class Encryption
 	public function __construct($key)
 	{
 		$this->key = hash('sha256', $key, true);
-		$this->iv = str_repeat("\0", 16); // Dummy IV for compatibility
+		$this->iv = '';//mcrypt_create_iv(32, MCRYPT_RAND);
 	}
 
 	public function encrypt($value)
 	{
-		if (function_exists('openssl_encrypt')) {
-			return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode(openssl_encrypt($value, 'AES-256-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv)));
-		} else {
-			return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($value)); // Fallback (No Encryption)
-		}
+		return strtr(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->key, $value, MCRYPT_MODE_ECB, $this->iv)), '+/=', '-_,');
 	}
 
 	public function decrypt($value)
 	{
-		if (function_exists('openssl_decrypt')) {
-			$value = str_replace(array('-', '_'), array('+', '/'), $value);
-			$decrypted = openssl_decrypt(base64_decode($value), 'AES-256-CBC', $this->key, OPENSSL_RAW_DATA, $this->iv);
-			return $decrypted !== false ? trim($decrypted) : '';
-		} else {
-			return base64_decode(str_replace(array('-', '_'), array('+', '/'), $value)); // Fallback
-		}
+		return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->key, base64_decode(strtr($value, '-_,', '+/=')), MCRYPT_MODE_ECB, $this->iv));
 	}
 }
 ?>
