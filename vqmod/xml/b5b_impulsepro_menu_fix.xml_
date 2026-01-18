@@ -1,0 +1,40 @@
+<modification>
+	<id>ImpulsePro Menu Fix</id>
+	<version>1.0.4</version>
+	<vqmver>2.0</vqmver>
+	<author>Niyi Sodipe - Base5Builder.com</author>
+	<!-- 
+		INSTRUCTIONS
+
+		INTRO
+		Since there are thousands of OpenCart extensions available and everyone uses different combinations of extensions,
+		it is impossible to create just one file that will work for everyone. So you will have to edit this file based
+		on the extensions you have. Please share your version of this file with me, so that I can compile it together for future release.
+		support @ base5builder.com
+		I will place you username in the credits if you wish.
+		
+
+		HOW TO
+		1. Go to your vQmod file path: [root]/vqmod/xml
+		2. Find the xml files for extensions that you use. Open the file.
+		3. In the open xml file, find "<file name="admin/view/template/common/header.tpl">"
+		4. Depending on how the developer wrote the code, the "<operation>" tag should have something similar to the one below. The example below is for the Export/Import extension. 
+
+			<operation>
+				<search position="after"><![CDATA[<li><a href="<?php echo $backup; ?>"><?php echo $text_backup; ?></a></li>]]></search>
+				<add><![CDATA[        <li><a href="<?php echo $export; ?>"><?php echo $text_export; ?></a></li>]]></add>
+			</operation>
+
+		5. Copy the entire "<operation>" tag and content
+		6. Open "impulsepro_menu_fix.xml" (this file) and paste it within the "<file>" tag.
+			(Scroll down and see the place that says "Paste Below This Line")
+		7. You have to do this for all your extensions. It doesn't take long.
+		
+	 -->
+	<file name="admin/view/template/admin_theme/base5builder_*/common/header.tpl">
+		<!-- Paste Below This Line -->
+
+		<!-- Paste Above This Line -->
+	</file>
+
+</modification>

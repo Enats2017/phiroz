@@ -1,0 +1,752 @@
+<modification>
+	<id>Admin Theme - Base 5 Builder - ImpulsePro</id>
+	<version>1.0.4</version>
+	<vqmver>2.0</vqmver>
+	<author>Niyi Sodipe - Base5Builder.com</author>
+	<file name="admin/controller/common/login.php">
+		<operation>
+			<search position="after" offset="1"><![CDATA[
+			$this->language->load('common/login');
+			]]></search>
+			<add><![CDATA[
+			$this->language->load('common/footer');
+			$this->data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			$this->template = 'common/login.tpl';
+			]]></search>
+			<add><![CDATA[
+			$this->template = 'admin_theme/base5builder_impulsepro/common/login.tpl';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/common/header.php">
+		<operation>
+			<search position="after" offset="1"><![CDATA[
+			$this->language->load('common/header');
+			]]></search>
+			<add><![CDATA[
+			$this->language->load('common/footer');
+			$this->data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			$this->data['logged'] = sprintf($this->language->get('text_logged'), $this->user->getUserName());
+			]]></search>
+			<add><![CDATA[
+			$this->data['logged'] = sprintf($this->language->get('text_logged'), ": <img src='view/image/admin_theme/base5builder_impulsepro/icon-admin-user.png' /> " . $this->user->getUserName());
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			$this->template = 'common/header.tpl';
+			]]></search>
+			<add><![CDATA[
+			$this->template = 'admin_theme/base5builder_impulsepro/common/header.tpl';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/common/footer.php">
+		<operation> <!-- Makes the $logged variable accessible in footer.tpl -->
+			<search position="after"><![CDATA[
+			$this->data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+			]]></search>
+			<add><![CDATA[
+			if (!$this->user->isLogged() || !isset($this->request->get['token']) || !isset($this->session->data['token']) || ($this->request->get['token'] != $this->session->data['token'])) {
+			$this->data['logged'] = '';
+			} else {			
+			$this->data['logged'] = $this->user->getUserName();
+			}
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			$this->template = 'common/footer.tpl';
+			]]></search>
+			<add><![CDATA[
+			$this->template = 'admin_theme/base5builder_impulsepro/common/footer.tpl';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/common/home.php">
+		<operation>
+			<search position="replace"><![CDATA[
+			$this->language->load('common/home');
+			]]></search>
+			<add><![CDATA[
+			$this->language->load('common/header');
+			$this->language->load('common/home');
+			$this->data['text_front'] = $this->language->get('text_front');
+			$this->data['text_logout'] = $this->language->get('text_logout');
+			$this->data['text_total_sales_previous_years'] = $this->language->get('text_total_sales_previous_years');
+			$this->data['text_other_stats'] = $this->language->get('text_other_stats');
+			
+			$this->data['text_total_review'] = $this->language->get('text_total_review');
+
+			$this->data['stores'] = array();
+			
+			$this->load->model('setting/store');
+			
+			$results = $this->model_setting_store->getStores();
+			
+			foreach ($results as $result) {
+				$this->data['stores'][] = array(
+					'name' => $result['name'],
+					'href' => $result['url']
+				);
+			}
+
+			$this->data['store'] = HTTP_CATALOG;
+			]]></add>
+		</operation>
+		<operation>
+			<search position="after" offset="1"><![CDATA[
+			$this->data['total_sale_year'] = $this->currency->format($this->model_sale_order->getTotalSalesByYear(date('Y')), $this->config->get('config_currency'));
+			]]></search>
+			<add><![CDATA[
+			$this->data['total_sale_raw'] = $this->model_sale_order->getTotalSales();
+			$this->data['total_sale_year_raw'] = $this->model_sale_order->getTotalSalesByYear(date('Y'));
+			$this->data['total_sales_previous_years_raw'] = $this->data['total_sale_raw'] - $this->data['total_sale_year_raw'];
+			$this->data['total_sales_previous_years'] = $this->currency->format($this->data['total_sale_raw'] - $this->data['total_sale_year_raw'], $this->config->get('config_currency'));
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			$this->template = 'common/home.tpl';
+			]]></search>
+			<add><![CDATA[
+			$this->template = 'admin_theme/base5builder_impulsepro/common/home.tpl';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/common/filemanager.php">
+		<operation>
+			<search position="after"><![CDATA[
+			$this->data['button_refresh'] = $this->language->get('button_refresh');
+			]]></search>
+			<add><![CDATA[
+			$this->data['button_select'] = $this->language->get('button_select');
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/common/filemanager.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<?php echo $button_refresh; ?></a></div>
+			]]></search>
+			<add><![CDATA[
+			<?php echo $button_refresh; ?></a><a id="select-file" class="button" style="background-image: url('view/image/admin_theme/base5builder_impulsepro/select.png');"><?php echo $button_select; ?></a></div>
+	
+			]]></add>
+		</operation>
+	</file>
+	<!--
+		FOR MULTI-LANGUAGE STORES
+		Duplicate the "file" block below and replace "english" in the file path with the additional Language you use.
+		Then translate the fields as necessary.
+		Repeat for all your store languages
+
+		EG:
+		<file name="admin/language/ENGLISH/common/home.php">
+			// CONTENT
+		</file>
+
+		BECOMES
+
+		<file name="admin/language/RUSSIAN/common/home.php">
+			// CONTENT
+		</file>
+	-->
+	<file name="admin/language/english/common/home.php">
+		<operation>
+			<search position="after"><![CDATA[
+			$_['text_customer']                 = 'Total Customers';
+			]]></search>
+			<add><![CDATA[
+			$_['text_total_sales_previous_years']                 = 'Previous Sales:';
+			$_['text_other_stats']                                = 'Other Stats';
+			$_['text_total_review']                               = 'No. of Reviews:';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/language/english/common/filemanager.php">
+		<operation>
+			<search position="after"><![CDATA[
+			$_['button_refresh']   = 'Refresh';
+			]]></search>
+			<add><![CDATA[
+			$_['button_select']    = 'Select File';
+			]]></add>
+		</operation>
+	</file>
+	<!-- End FOR MULTI-LANGUAGE STORES -->
+	<file name="admin/view/template/tool/error_log.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<div class="buttons"><a href="<?php echo $clear; ?>" class="button"><?php echo $button_clear; ?></a></div>
+			]]></search>
+			<add><![CDATA[
+			<div class="buttons"><a href="<?php echo $clear; ?>" class="button delete"><?php echo $button_clear; ?></a></div>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/order_list.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<form action="" method="post" enctype="multipart/form-data" id="form">
+			]]></search>
+			<add><![CDATA[
+			<form action="" method="post" enctype="multipart/form-data" id="form" class="form-fix">
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/return_list.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form">
+			]]></search>
+			<add><![CDATA[
+			<form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form" class="form-fix">
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/shipping/weight.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<div class="content">
+			]]></search>
+			<add><![CDATA[
+			<div class="content margin-fix">
+			]]></add>
+		</operation>
+		<operation>
+			<search position="after" offset="1"><![CDATA[
+			</form>
+			]]></search>
+			<add><![CDATA[
+			<div class="clear"></div>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/return_form.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<div class="content">
+			]]></search>
+			<add><![CDATA[
+			<div class="content margin-fix">
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/customer_list.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<form action="" method="post" enctype="multipart/form-data" id="form">
+			]]></search>
+			<add><![CDATA[
+			<form action="" method="post" enctype="multipart/form-data" id="form" class="form-fix">
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			<div class="content">
+			]]></search>
+			<add><![CDATA[
+			<div class="content sales-customer">
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/total/handling.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<td><?php echo $entry_tax; ?></td>
+			]]></search>
+			<add><![CDATA[
+			<td><?php echo $entry_tax_class; ?></td>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/total/low_order_fee.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<td><?php echo $entry_tax; ?></td>
+			]]></search>
+			<add><![CDATA[
+			<td><?php echo $entry_tax_class; ?></td>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/report/*">
+		<operation>
+			<search position="replace"><![CDATA[
+			<div class="content">
+			]]></search>
+			<add><![CDATA[
+			<div class="content sales-report">
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/category_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/category.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-category-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/product.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-products-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/attribute_list.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-attribute-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/attribute_form.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-attribute-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/attribute_group_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-attribute-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/option_*.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-options-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/manufacturer_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-manufacturers-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/download_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/download.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-downloads-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/review_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/review.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-reviews-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/information_*.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-information-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/extension/module.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/module.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-extensions-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/module/*">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/module.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-extensions-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/extension/shipping.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-shipping-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/shipping/*">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-shipping-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/extension/payment.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-payment-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/payment/*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-payment-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/extension/total.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/total.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-totals-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/total/*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-totals-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/extension/feed.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/feed.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-universal-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/feed/*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-universal-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/order_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-sales-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/return_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-returns-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/customer_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-customers-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/affiliate_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-customers-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/coupon_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-coupons-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/voucher_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-coupons-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/contact.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-mail-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/setting/store_*.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-settings-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/setting/setting.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-settings-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/design/*.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-layout-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/user/*.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-users-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/language_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-globe-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/currency_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-payment-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/stock_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-attribute-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/order_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-attribute-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/return_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-returns-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/country_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-globe-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/zone_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-zone-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/geo_zone_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-zone-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/tax*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-totals-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/length_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-ruler-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/localisation/weight_*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-weight-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/error/*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-warning-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/tool/error_log.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-warning-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/tool/backup.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+			<h1><img src="view/image/backup.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></search>
+			<add><![CDATA[
+			<h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-backup-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/report/*">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[
+			<div class="heading">
+			]]></search>
+			<add><![CDATA[
+			<div class="heading"><h1><img src="view/image/admin_theme/base5builder_impulsepro/icon-reports-large.png" alt="" /> <?php echo $heading_title; ?></h1>
+			]]></add>
+		</operation>
+	</file>
+</modification>

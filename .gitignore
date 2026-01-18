@@ -1,0 +1,57 @@
+# Database files
+*.sql
+*.sqlite
+*.db
+
+# Backup directories
+backup_before_cleanup_*/
+
+# Configuration files with sensitive data
+**/config.php
+**/connection.php
+
+# Log files
+*.log
+logs/
+*.txt
+
+# Cache and temporary files
+cache/
+tmp/
+temp/
+*.tmp
+*.cache
+
+# Uploaded files and user content
+upload/
+uploads/
+image/
+images/gallery/
+download/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if using npm)
+node_modules/
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# System files
+*.bak
+*.old
+*.orig
