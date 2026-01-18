@@ -16,6 +16,9 @@ if (!defined('DIR_APPLICATION')) {
 // Startup
 // VirtualQMOD
 require_once(dirname(dirname(__FILE__)) . '/vqmod/vqmod.php');
+VQMod::bootup();
+
+// VQMODDED Startup
 require_once(VQMod::modCheck(DIR_SYSTEM . 'startup.php'));
 
 // Application Classes
