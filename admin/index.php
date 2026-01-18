@@ -14,7 +14,9 @@ if (!defined('DIR_APPLICATION')) {
 }
 
 // Startup
-require_once(DIR_SYSTEM . 'startup.php');
+// VirtualQMOD
+require_once('../vqmod/vqmod.php');
+require_once(VQMod::modCheck(DIR_SYSTEM . 'startup.php'));
 
 // Application Classes
 require_once(DIR_SYSTEM . 'library/currency.php');
