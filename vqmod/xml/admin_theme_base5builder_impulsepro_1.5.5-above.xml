@@ -1,13 +1,22 @@
 <modification>
-	<id>Admin Theme - Base 5 Builder - ImpulsePro</id>
+
+
+
+
+
+
+
+
+
 
 	
+	<id>Admin Theme - Base 5 Builder - ImpulsePro</id>
 	<version>1.0.4</version>
 	<vqmver>2.0</vqmver>
 	<author>Niyi Sodipe - Base5Builder.com</author>
 	<file name="admin/controller/common/login.php">
 		<operation>
-			<search position="after" offset="1"><![CDATA[
+			<search position="after" offset="1"><![CDATA[	
 			$this->language->load('common/login');
 			]]></search>
 			<add><![CDATA[
@@ -17,7 +26,6 @@
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[
-				
 			$this->template = 'common/login.tpl';
 			]]></search>
 			<add><![CDATA[
@@ -107,13 +115,13 @@
 		</operation>
 		<operation>
 			<search position="after" offset="1"><![CDATA[
-			$this->data['total_sale_year'] = $this->currency->format($this->model_sale_order->getTotalSalesByYear(date('Y')), $this->config->get('config_currency'));
+			$this->data['total_sale_year'] = 0;//$this->currency->format($this->model_sale_order->getTotalSalesByYear(date('Y')), $this->config->get('config_currency'));
 			]]></search>
 			<add><![CDATA[
-			$this->data['total_sale_raw'] = $this->model_sale_order->getTotalSales();
-			$this->data['total_sale_year_raw'] = $this->model_sale_order->getTotalSalesByYear(date('Y'));
-			$this->data['total_sales_previous_years_raw'] = $this->data['total_sale_raw'] - $this->data['total_sale_year_raw'];
-			$this->data['total_sales_previous_years'] = $this->currency->format($this->data['total_sale_raw'] - $this->data['total_sale_year_raw'], $this->config->get('config_currency'));
+			$this->data['total_sale_raw'] = 0;//$this->model_sale_order->getTotalSales();
+			$this->data['total_sale_year_raw'] = 0;//$this->model_sale_order->getTotalSalesByYear(date('Y'));
+			$this->data['total_sales_previous_years_raw'] = 0;//$this->data['total_sale_raw'] - $this->data['total_sale_year_raw'];
+			$this->data['total_sales_previous_years'] = 0;//$this->currency->format($this->data['total_sale_raw'] - $this->data['total_sale_year_raw'], $this->config->get('config_currency'));
 			]]></add>
 		</operation>
 		<operation>

@@ -13,5 +13,3 @@
 // START REPLACES //
 
 // END REPLACES //
-ob_start();
-?>

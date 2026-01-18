@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <modification>
 	<id>VQMOD CORE FOR OPENCART - DO NOT REMOVE</id>
 	<version>1.4.x and above</version>
 	<vqmver required="true">2.5.0</vqmver>
 	<author>vqmod.com</author>
-	
 	
 	<file name="system/startup.php,system/engine/*.php,system/library/*.php,admin/controller/extension/*.php">
 		<operation error="skip" info="For non OCMod includes/requires">
