@@ -6,7 +6,9 @@
 # Configuration files with sensitive data
 config.php
 admin/config.php
-**/config.php
+# Configuration files with sensitive data
+/config.php
+/admin/config.php
 **/connection.php
 
 # Log files
