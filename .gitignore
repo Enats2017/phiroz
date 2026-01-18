@@ -3,10 +3,9 @@
 *.sqlite
 *.db
 
-# Backup directories
-backup_before_cleanup_*/
-
 # Configuration files with sensitive data
+config.php
+admin/config.php
 **/config.php
 **/connection.php
 
