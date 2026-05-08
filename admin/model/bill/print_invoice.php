@@ -175,7 +175,7 @@ class ModelBillPrintInvoice extends Model {
 	}
 
 	public function get_transaction_ids($bill_id) {
-		$sql = "SELECT `transaction_id`, `month`, `year` FROM `" . DB_PREFIX . "bill` WHERE `bill_id` = '".(int)$bill_id."' AND `cancel_status` = '0' "; 
+		$sql = "SELECT `transaction_id`, `month`, `year`, `invoice_date` FROM `" . DB_PREFIX . "bill` WHERE `bill_id` = '".(int)$bill_id."' AND `cancel_status` = '0' "; 
 		$sql .= " ORDER BY DATE(`dot`) ASC";
 		$query = $this->db->query($sql);
 		return $query->rows;

@@ -56,6 +56,19 @@
                             <?php echo $data['owner_name']; ?> 
                         </p>
                     </td>
+                    <!-- <td style="text-align:right;padding-top:40px;font-size:18px;font-weight:bold;">
+                            <?php echo "30-APR-2026"; ?> 
+                    </td> -->
+                        <td style="text-align:right;padding-top:40px;font-size:18px;font-weight:bold;">
+                                <p style="font-weight: bolder;">
+                                <?php
+                                echo strtoupper(date(
+                                    'd-M-Y',
+                                    strtotime('last day of ' . $data['month'] . ' ' . $data['year'])
+                                ));
+                                ?>
+                            </p>
+                    </td>
                 </tr>
             </table>
             <table class="table table-bordered test" style="padding: 0.2rem;">
@@ -118,7 +131,7 @@
                     <td></td>
                     <!-- <td style="text-align: end;position: relative;top: 50px;font-size:18px;"> <php echo $data['doctor_name'];  ?> </td> -->
                     <td style="text-align: end; position: relative;">
-                        <img src="http://5.161.114.135/phiroz_2020/image/sign_stamp.png" alt="Dr. Phiroz Khambatta"style="height: 170px; width: 230px;">
+                        <img src="http://5.161.114.135/phiroz_2020/image/sign_stamp.png" style="height: 170px; width: 230px;">
                     </td>
                 </tr>
             <?php  } else {?>

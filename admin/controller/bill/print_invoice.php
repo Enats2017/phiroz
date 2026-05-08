@@ -855,7 +855,7 @@ class ControllerBillPrintInvoice extends Controller {
 		$final_owner = array();
 		$final_transaction = array();
 		$transaction_ids = $this->model_bill_print_invoice->get_transaction_ids($filter_bill_id);
-		//echo "<pre>";print_r($transaction_ids);exit;
+		// echo "<pre>";print_r($transaction_ids);exit;
 		$medicine_doctor_id = 0;
 		foreach ($transaction_ids as $tkey => $tvalue) {
 			$transaction_data = $this->model_bill_print_invoice->get_transaction_datass($tvalue['transaction_id']);
@@ -869,6 +869,7 @@ class ControllerBillPrintInvoice extends Controller {
 			$final_transaction[$tkey]['dot'] = date('M d, Y', strtotime($transaction_data['dot']));
 			$final_transaction[$tkey]['month'] = $transaction_data['month'];
 			$final_transaction[$tkey]['year'] = $transaction_data['year'];
+			$final_transaction[$tkey]['invoice_date'] = $tvalue['invoice_date'];
 
 			$filter_month = $transaction_ids[0]['month'];
 			$filter_year = $transaction_ids[0]['year'];
